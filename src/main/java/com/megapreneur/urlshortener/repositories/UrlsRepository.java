@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface UrlsRepository extends MongoRepository<Urls, String> {
 
     Optional<Urls> findByShortenedUrl(String url);
+
+    Optional<Urls> findByOriginalUrl(String originalUrl);
 }

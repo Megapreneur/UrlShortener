@@ -55,22 +55,26 @@ public class UrlsServiceImpl implements UrlsService{
 
     @Override
     public void deleteUrlUsingShortenedUrl(String shortenedUrl) {
-
+        Urls savedUrl = urlRepository.findByShortenedUrl(shortenedUrl).orElseThrow(() ->new UrlNotFoundException("Url not found"));
+        urlRepository.delete(savedUrl);
     }
 
     @Override
     public void deleteUrlUsingOriginalUrl(String originalUrl) {
-
+        Urls url = urlRepository.findByOriginalUrl(originalUrl).orElseThrow(() -> new UrlNotFoundException("Url not found"));
+        urlRepository.delete(url);
     }
 
     @Override
     public String getDecodedUrl(String shortenedUrl) {
-        return null;
+        Urls url = urlRepository.findByShortenedUrl(shortenedUrl).orElseThrow(() -> new UrlNotFoundException("Url not found"));
+        return url.getOriginalUrl();
     }
 
     @Override
     public String getEncodedUrl(String originalUrl) {
-        return null;
+        Urls url = urlRepository.findByOriginalUrl(originalUrl).orElseThrow(() -> new UrlNotFoundException("Url not found"));
+        return url.getShortenedUrl();
     }
 
     private String encodeUrl(String url){
