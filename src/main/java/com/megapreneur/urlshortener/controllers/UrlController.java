@@ -20,6 +20,8 @@ public class UrlController {
         GenerateUrlResponse url = urlsService.generateShortUrl(request);
         return ResponseEntity.ok(url.getMessage());
     }
+    @GetMapping()
+    public ResponseEntity<?> getShortenedUrl()
     @DeleteMapping("/{originalUrl}")
     public void deleteOriginalUrl(@PathVariable String originalUrl) throws UrlNotFoundException{
         urlsService.deleteUrlUsingOriginalUrl(originalUrl);
